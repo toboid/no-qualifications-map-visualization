@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="libraries/d3.v3.js"></script>
+    <script src="libraries/topojson.v0.js"></script>
+    <script src="data/countries_topo.js"></script>
+    <style>
+        .country.SCT { fill: #ddc; }
+        .country.WLS { fill: #cdd; }
+        .country.NIR { fill: #cdc; }
+        .country.ENG { fill: #dcd; }
+        .country.IRL { display: none; }
+    </style>
+    
+</head>
+<body>
+    <script>
+        var width = 960,
+            height = 1160;
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        //var projection = d3.geo.mercator()
+        //    .scale(20000)
+        //    .center([0, 55.4])
+        //    .translate([width / 2, (height / 2)] );
+
+        var projection = d3.geo.albers()
+            .center([0, 55.4])
+            .rotate([4.4, 0])
+            .parallels([50, 60])
+            .scale(6000)
+            .translate([width / 2, height / 2]);
+
+        var path = d3.geo.path().projection(projection);
+
+        svg.selectAll(".country")
+            .data(topojson.object(countries, countries.objects.countries).geometries)
+            .enter().append("path")
+            .attr("class", function (d) { return "country " + d.id; })
+            .attr("d", path);
+
+    </script>
+</body>
+</html>
