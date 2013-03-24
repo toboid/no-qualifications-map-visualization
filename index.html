@@ -7,12 +7,15 @@
     <script src="libraries/d3.v3.js"></script>
     <script src="libraries/topojson.v0.js"></script>
     <script src="data/countries_topo.js"></script>
+    <script src="data/constituencies_topo_0.4.js"></script>-
     <style>
         .country.SCT { fill: #ddc; }
         .country.WLS { fill: #cdd; }
-        .country.NIR { fill: #cdc; }
         .country.ENG { fill: #dcd; }
-        .country.IRL { display: none; }
+        /*.country.NIR { display: none; }*/
+        /*.country.IRL { display: none; }*/
+
+        .constituency:hover{ fill: cornflowerblue; }
     </style>
     
 </head>
@@ -43,6 +46,18 @@
             .data(topojson.object(countries, countries.objects.countries).geometries)
             .enter().append("path")
             .attr("class", function (d) { return "country " + d.id; })
+            .attr("d", path);
+
+        //svg.append("path")
+        //    .datum(topojson.object(constituencies, constituencies.objects.constituencies))
+        //    .attr("stroke", "red")
+        //    .attr("d", path);
+
+        svg.selectAll(".constituency")
+            .data(topojson.object(constituencies, constituencies.objects.constituencies).geometries)
+            .enter().append("path")
+            .attr("stroke", "red")
+            .attr("class", function (d) { return "constituency" })
             .attr("d", path);
 
     </script>
