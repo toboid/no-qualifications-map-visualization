@@ -7,15 +7,9 @@
     <script src="libraries/d3.v3.js"></script>
     <script src="libraries/topojson.v0.js"></script>
     <script src="data/countries_topo.js"></script>
-    <script src="data/constituencies_topo_0.4.js"></script>-
-    <style>
-        .country.SCT { fill: #ddc; }
-        .country.WLS { fill: #cdd; }
-        .country.ENG { fill: #dcd; }
+    <script src="data/constituencies_topo_0.4.js"></script>
 
-        .constituency:hover{ fill: cornflowerblue; }
-    </style>
-    
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <script>
@@ -40,23 +34,31 @@
 
         var path = d3.geo.path().projection(projection);
 
-        svg.selectAll(".country")
+        // Countries.
+        svg.selectAll(".cntry")
             .data(topojson.object(countries, countries.objects.countries).geometries)
             .enter().append("path")
-            .attr("class", function (d) { return "country " + d.id; })
+            .attr("class", function (d) { return "cntry " + d.id; })
             .attr("d", path);
+
+        // TODO not sure if i want this in or not!
+        // Country bounaries.
+        svg.append("path")
+            .datum(topojson.mesh(countries, countries.objects.countries, function (a, b) { return a !== b }))
+            .attr("d", path)
+            .attr("class", "cntry-bndry");
 
         //svg.append("path")
         //    .datum(topojson.object(constituencies, constituencies.objects.constituencies))
         //    .attr("stroke", "red")
         //    .attr("d", path);
 
-        svg.selectAll(".constituency")
-            .data(topojson.object(constituencies, constituencies.objects.constituencies).geometries)
-            .enter().append("path")
-            .attr("stroke", "red")
-            .attr("class", function (d) { return "constituency" })
-            .attr("d", path);
+        //svg.selectAll(".constituency")
+        //    .data(topojson.object(constituencies, constituencies.objects.constituencies).geometries)
+        //    .enter().append("path")
+        //    .attr("stroke", "red")
+        //    .attr("class", function (d) { return "constituency" })
+        //    .attr("d", path);
 
     </script>
 </body>

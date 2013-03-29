@@ -1,0 +1,12 @@
+﻿/* Countries */
+.cntry.SCT { fill: #ddc; }
+.cntry.WLS { fill: #cdd; }
+.cntry.ENG { fill: #dcd; }
+.cntry-bndry {
+  fill: none;
+  stroke: #777;
+  stroke-dasharray: 2px;
+  stroke-linejoin: round;
+}
+
+.constituency:hover{ fill: cornflowerblue; }
