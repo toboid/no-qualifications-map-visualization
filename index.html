@@ -14,27 +14,16 @@
 <body>
     <svg id="map" width="960" height="1160">
         <defs>
-          <filter xmlns="http://www.w3.org/2000/svg" id="dropshadow" height="130%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> 
-<!--              <feOffset dx="2" dy="2" result="offsetblur"/> -->
-              <feMerge> 
-                <feMergeNode/>
-                <feMergeNode in="SourceGraphic"/> 
-              </feMerge>
+          <filter id="dropshadow">
+              <feGaussianBlur stdDeviation="5"/> 
            </filter>
         </defs>
     </svg>
     <script>
-        //var width = 960,
-        //    height = 1160;
-
-        //var svg = d3.select("body").append("svg")
-        //    .attr("width", width)
-        //    .attr("height", height);
-
         var svg = d3.select("#map");
         var width = svg.attr("width"),
             height = svg.attr("height");
+
 
         //var projection = d3.geo.mercator()
         //    .scale(20000)
@@ -57,8 +46,7 @@
         svg.append("path")
             .datum(topojson.mesh(boundaries, boundaries.objects.regions, function (a, b) { return a === b }))
             .attr("d", path)
-            .attr("class", "cntry-bndry-ext")
-            .attr("filter", "url(#dropshadow)");
+            .attr("class", "cntry-bndry-ext");
 
         // Constituencies.
         svg.append("g")

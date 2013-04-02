@@ -1,15 +1,15 @@
-﻿.constituency {
+﻿path {
     fill: none;
-    stroke: #fff;
     stroke-linejoin: round;
 }
 
+.constituency {
+    stroke: #fff;
+    stroke-width: 0.8px;
+}
+
 .region {
-  fill: none;
   stroke: none;
-  /*stroke: white;
-  stroke-width: 1px;*/
-  stroke-linejoin: round;
   pointer-events: visible;
 }
 .region path:hover {
@@ -17,10 +17,10 @@
 }
 
 .cntry-bndry-ext {
-  fill: none;
-  stroke:rgb(230, 230, 230);
-  stroke-width: 1px;
-  stroke-linejoin: round;
+  fill: #000;
+  fill-opacity: .2;
+  stroke-width: .35px;
+  filter: url(#dropshadow);
 }
 
 
