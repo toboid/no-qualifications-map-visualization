@@ -6,9 +6,15 @@
 
 .region {
   fill: none;
-  stroke: white;
-  stroke-width: 1px;
+  stroke: none;
+  /*stroke: white;
+  stroke-width: 1px;*/
   stroke-linejoin: round;
+  pointer-events: visible;
+}
+.region path:hover {
+    fill: cornflowerblue;
+    pointer-events: visible;
 }
 
 .cntry-bndry-ext {
@@ -18,9 +24,7 @@
   stroke-linejoin: round;
 }
 
-.region path:hover {
-    fill: cornflowerblue;
-}
+
 
 /*
 .region-btn {
