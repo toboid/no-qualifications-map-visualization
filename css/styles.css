@@ -1,18 +1,28 @@
-﻿/* Countries */
-.cntry.SCT { fill: #ddc; }
-.cntry.WLS { fill: #cdd; }
-.cntry.ENG { fill: #dcd; }
-.cntry-bndry {
+﻿.constituency {
+    fill: none;
+    stroke: #fff;
+    stroke-linejoin: round;
+}
+
+.region {
   fill: none;
-  stroke: #777;
-  stroke-dasharray: 2px;
+  stroke: white;
+  stroke-width: 2px;
+  /*stroke: #000;
+  stroke-dasharray: 2px;*/
   stroke-linejoin: round;
 }
 
-/*.constituency {
-    fill: yellow;
-    stroke-width: 1px;
-    stroke: black;
-}*/
-.region:hover{ fill: cornflowerblue; }
-.constituency:hover{ fill: cornflowerblue; }
+.cntry-bndry-ext {
+  fill: none;
+  stroke: rgb(0,68,27);
+  stroke-linejoin: round;
+}
+
+.region path:hover {
+    fill: cornflowerblue;
+}
+
+
+
+

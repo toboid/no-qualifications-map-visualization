@@ -9,6 +9,7 @@
     <script src="data/countries_topo.js"></script>
     <script src="data/constituencies_topo_0.4.js"></script>
     <script src="data/unqualified.js"></script>
+    <script src="data/boundaries.js"></script>
     <!--TODO - remove--><script src="scratch.js"></script>
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/colorbrewer.css" />
@@ -40,34 +41,48 @@
             .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
                             
 
-        // Countries.
-        svg.selectAll(".cntry")
-            .data(topojson.object(countries, countries.objects.countries).geometries)
-            .enter().append("path")
-            .attr("class", function (d) { return "cntry " + d.id; })
-            .attr("d", path);
-
-        // Country bounaries.
-        svg.append("path")
-            .datum(topojson.mesh(countries, countries.objects.countries, function (a, b) { return a !== b }))
-            .attr("d", path)
-            .attr("class", "cntry-bndry");
+        //// Countries.
+        //svg.selectAll(".cntry")
+        //    .data(topojson.object(countries, countries.objects.countries).geometries)
+        //    .enter().append("path")
+        //    .attr("class", function (d) { return "cntry " + d.id; })
+        //    .attr("d", path);
 
         // Constituencies.
         svg.append("g")
-            .attr("class", "YlGn")
-            .selectAll(".constituency")
-            .data(topojson.object(constituencies, constituencies.objects.constituencies).geometries)
+            .attr("class", "Greens constituency")
+            .selectAll("path")
+            .data(topojson.object(boundaries, boundaries.objects.constituencies).geometries)
             .enter().append("path")
             .attr("class", function (d) {
                 return colourScale(unqualified.data[d.id].percent_unqual);
-
             })
             .attr("d", path);
 
-        console.log(unqualified);
+        // Regions.
+        svg.append("g")
+            .attr("class", "region")
+            .selectAll("path")
+            .data(topojson.object(boundaries, boundaries.objects.regions).geometries)
+            .enter().append("path")
+            .attr("d", path);
 
+        //// Internal country bounaries.
+        //svg.append("path")
+        //    .datum(topojson.mesh(countries, countries.objects.countries, function (a, b) { return a !== b }))
+        //    .attr("d", path)
+        //    .attr("class", "cntry-bndry-inner");
 
+        // External boundary.
+        svg.append("path")
+            .datum(topojson.mesh(boundaries, boundaries.objects.regions, function (a, b) { return a === b }))
+            .attr("d", path)
+            .attr("class", "cntry-bndry-ext");
+
+        console.log(topojson.object(boundaries, boundaries.objects.constituencies));
+        console.log(topojson.object(boundaries, boundaries.objects.regions));
+
+        boundaries = null;
     </script>
 
     <div id="myjson"></div>
