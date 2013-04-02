@@ -24,12 +24,6 @@
         var width = svg.attr("width"),
             height = svg.attr("height");
 
-
-        //var projection = d3.geo.mercator()
-        //    .scale(20000)
-        //    .center([0, 55.4])
-        //    .translate([width / 2, (height / 2)] );
-
         var projection = d3.geo.albers()
             .center([0, 55.4])
             .rotate([4.4, 0])
@@ -38,6 +32,7 @@
             .translate([width / 2, height / 2]);
 
         var path = d3.geo.path().projection(projection);
+
         var colourScale = d3.scale.quantize()
             .domain([unqualified.summary.min_percent, unqualified.summary.max_percent])
             .range(d3.range(9).map(function (i) { return "q" + i + "-9"; }));
@@ -66,9 +61,6 @@
             .data(topojson.object(boundaries, boundaries.objects.regions).geometries)
             .enter().append("path")
             .attr("d", path);
-
-        console.log(topojson.object(boundaries, boundaries.objects.constituencies));
-        console.log(topojson.object(boundaries, boundaries.objects.regions));
 
         // TODO - want this?
         boundaries = null;

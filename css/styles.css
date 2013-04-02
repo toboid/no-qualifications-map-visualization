@@ -13,7 +13,8 @@
   pointer-events: visible;
 }
 .region path:hover {
-    fill: cornflowerblue;
+    fill: yellow;
+    opacity: 0.3;
 }
 
 .cntry-bndry-ext {
