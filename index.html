@@ -6,11 +6,8 @@
     <title></title>
     <script src="libraries/d3.v3.js"></script>
     <script src="libraries/topojson.v0.js"></script>
-    <script src="data/countries_topo.js"></script>
-    <script src="data/constituencies_topo_0.4.js"></script>
     <script src="data/unqualified.js"></script>
     <script src="data/boundaries.js"></script>
-    <!--TODO - remove--><script src="scratch.js"></script>
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/colorbrewer.css" />
 </head>
@@ -56,14 +53,6 @@
             .domain([unqualified.summary.min_percent, unqualified.summary.max_percent])
             .range(d3.range(9).map(function (i) { return "q" + i + "-9"; }));
 
-
-        //// Countries.
-        //svg.selectAll(".cntry")
-        //    .data(topojson.object(countries, countries.objects.countries).geometries)
-        //    .enter().append("path")
-        //    .attr("class", function (d) { return "cntry " + d.id; })
-        //    .attr("d", path);
-
         // External boundary.
         svg.append("path")
             .datum(topojson.mesh(boundaries, boundaries.objects.regions, function (a, b) { return a === b }))
@@ -90,22 +79,11 @@
             .enter().append("path")
             .attr("d", path);
 
-        //// Internal country bounaries.
-        //svg.append("path")
-        //    .datum(topojson.mesh(countries, countries.objects.countries, function (a, b) { return a !== b }))
-        //    .attr("d", path)
-        //    .attr("class", "cntry-bndry-inner");
-
-
-
         console.log(topojson.object(boundaries, boundaries.objects.constituencies));
         console.log(topojson.object(boundaries, boundaries.objects.regions));
 
+        // TODO - want this?
         boundaries = null;
-    </script>
-
-    <div id="myjson"></div>
-    <script>
     </script>
 </body>
 </html>
