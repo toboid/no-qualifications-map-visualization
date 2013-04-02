@@ -9,4 +9,10 @@
   stroke-linejoin: round;
 }
 
+/*.constituency {
+    fill: yellow;
+    stroke-width: 1px;
+    stroke: black;
+}*/
+.region:hover{ fill: cornflowerblue; }
 .constituency:hover{ fill: cornflowerblue; }

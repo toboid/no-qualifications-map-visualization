@@ -8,8 +8,10 @@
     <script src="libraries/topojson.v0.js"></script>
     <script src="data/countries_topo.js"></script>
     <script src="data/constituencies_topo_0.4.js"></script>
-
-    <link rel="stylesheet" href="styles.css" />
+    <script src="data/unqualified.js"></script>
+    <!--TODO - remove--><script src="scratch.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/colorbrewer.css" />
 </head>
 <body>
     <script>
@@ -33,6 +35,10 @@
             .translate([width / 2, height / 2]);
 
         var path = d3.geo.path().projection(projection);
+        var colourScale = d3.scale.quantize()
+            .domain([unqualified.summary.min_percent, unqualified.summary.max_percent])
+            .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
+                            
 
         // Countries.
         svg.selectAll(".cntry")
@@ -41,25 +47,31 @@
             .attr("class", function (d) { return "cntry " + d.id; })
             .attr("d", path);
 
-        // TODO not sure if i want this in or not!
         // Country bounaries.
         svg.append("path")
             .datum(topojson.mesh(countries, countries.objects.countries, function (a, b) { return a !== b }))
             .attr("d", path)
             .attr("class", "cntry-bndry");
 
-        //svg.append("path")
-        //    .datum(topojson.object(constituencies, constituencies.objects.constituencies))
-        //    .attr("stroke", "red")
-        //    .attr("d", path);
+        // Constituencies.
+        svg.append("g")
+            .attr("class", "YlGn")
+            .selectAll(".constituency")
+            .data(topojson.object(constituencies, constituencies.objects.constituencies).geometries)
+            .enter().append("path")
+            .attr("class", function (d) {
+                return colourScale(unqualified.data[d.id].percent_unqual);
 
-        //svg.selectAll(".constituency")
-        //    .data(topojson.object(constituencies, constituencies.objects.constituencies).geometries)
-        //    .enter().append("path")
-        //    .attr("stroke", "red")
-        //    .attr("class", function (d) { return "constituency" })
-        //    .attr("d", path);
+            })
+            .attr("d", path);
 
+        console.log(unqualified);
+
+
+    </script>
+
+    <div id="myjson"></div>
+    <script>
     </script>
 </body>
 </html>
