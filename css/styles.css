@@ -14,7 +14,6 @@
 }
 .region path:hover {
     fill: cornflowerblue;
-    pointer-events: visible;
 }
 
 .cntry-bndry-ext {
@@ -23,17 +22,5 @@
   stroke-width: 1px;
   stroke-linejoin: round;
 }
-
-
-
-/*
-.region-btn {
-    fill:none;
-}
-
-.region-btn:hover {
-    fill:cornflowerblue;
-}
-*/
 
 
