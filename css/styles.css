@@ -7,13 +7,13 @@
 .region {
   fill: none;
   stroke: white;
-  stroke-width: 2px;
+  stroke-width: 1px;
   stroke-linejoin: round;
 }
 
 .cntry-bndry-ext {
   fill: none;
-  stroke: rgb(206, 202, 202);
+  stroke:rgb(230, 230, 230);
   stroke-width: 1px;
   stroke-linejoin: round;
 }
@@ -22,6 +22,14 @@
     fill: cornflowerblue;
 }
 
+/*
+.region-btn {
+    fill:none;
+}
 
+.region-btn:hover {
+    fill:cornflowerblue;
+}
+*/
 
 
