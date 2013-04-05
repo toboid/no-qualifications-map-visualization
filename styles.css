@@ -1,4 +1,5 @@
 ﻿path {
+    /*fill: yellow;*/
     fill: none;
     stroke-linejoin: round;
 }
@@ -18,10 +19,13 @@
 }
 
 .cntry-bndry-ext {
-  fill: #000;
-  fill-opacity: .2;
-  stroke-width: .35px;
-  filter: url(#dropshadow);
+    fill: #000;
+    fill-opacity: .2;
+    stroke-width: .35px;
+    filter: url(index.html#dropshadow);
 }
+
+
+
 
 
