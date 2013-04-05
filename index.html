@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -8,21 +7,32 @@
     <script src="libraries/topojson.v0.js"></script>
     <script src="data/unqualified.js"></script>
     <script src="data/boundaries.js"></script>
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/colorbrewer.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="colorbrewer.css" />
 </head>
 <body>
     <svg id="map" width="960" height="1160">
-        <defs>
-          <filter id="dropshadow">
-              <feGaussianBlur stdDeviation="5"/> 
-           </filter>
-        </defs>
+        <filter id="dropshadow">
+            <feGaussianBlur stdDeviation="5"/> 
+        </filter>
     </svg>
     <script>
         var svg = d3.select("#map");
         var width = svg.attr("width"),
             height = svg.attr("height");
+
+        //var width = 960,
+        //    height = 1160;
+
+        //var svg = d3.select("body").append("svg")
+        //    .attr("viewBox", "0 0 " + width + " " + height)
+        //    .attr("width", width)
+        //    .attr("height", height);
+
+        //svg.append("filter")
+        //    .attr("id", "dropshadow")
+        //    .append("feGaussianBlur")
+        //    .attr("stdDeviation", 5);
 
         var projection = d3.geo.albers()
             .center([0, 55.4])
@@ -58,12 +68,33 @@
         svg.append("g")
             .attr("class", "region")
             .selectAll("path")
-            .data(topojson.object(boundaries, boundaries.objects.regions).geometries)
-            .enter().append("path")
+			.data(topojson.object(boundaries, boundaries.objects.regions).geometries)
+            //.data(topojson.object(boundaries, boundaries.objects.regions).geometries/*, function (d) { return d.id; }*/)
+            .enter()
+            .append("path")
+            //.filter(function (d, i) { return d.id != "S15000001" ? this : null; })  // still outputting a load of path elements but with no attributes!
+            //.attr("class", function (d) { return d.properties.NAME;})
             .attr("d", path);
 
-        // TODO - want this?
-        boundaries = null;
+        console.log(topojson.object(boundaries, boundaries.objects.regions).geometries);
+
+
+        //function groupRegions(json, key) {
+        //    var results = {},
+        //        groups = {};
+
+        //    for (var p in json) {
+        //        if (results.hasOwnProperty(json[p].properties.NAME)) {
+
+        //        }
+
+        //        if (json[p].properties.NAME === value) {
+        //            result[explosionIndex] = json[explosionIndex];
+        //        }
+        //    }
+        //    return result;
+        //}
+
     </script>
 </body>
 </html>
