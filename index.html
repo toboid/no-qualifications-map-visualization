@@ -55,10 +55,11 @@
 
         // Constituencies.
         svg.append("g")
-            .attr("class", "Greens constituency")
+            .attr("class", "YlGn constituency")
             .selectAll("path")
             .data(topojson.object(boundaries, boundaries.objects.constituencies).geometries)
-            .enter().append("path")
+            .enter()
+            .append("path")
             .attr("class", function (d) {
                 return colourScale(unqualified.data[d.id].percent_unqual);
             })
@@ -66,34 +67,42 @@
 
         // Regions.
         svg.append("g")
+            .attr("id", "regions")
             .attr("class", "region")
             .selectAll("path")
-			.data(topojson.object(boundaries, boundaries.objects.regions).geometries)
-            //.data(topojson.object(boundaries, boundaries.objects.regions).geometries/*, function (d) { return d.id; }*/)
+            .data(groupRegions(topojson.object(boundaries, boundaries.objects.regions).geometries))
             .enter()
             .append("path")
-            //.filter(function (d, i) { return d.id != "S15000001" ? this : null; })  // still outputting a load of path elements but with no attributes!
-            //.attr("class", function (d) { return d.properties.NAME;})
             .attr("d", path);
 
-        console.log(topojson.object(boundaries, boundaries.objects.regions).geometries);
+        // Groups geometries in the data set by region,
+        // also removes any empty geometries (likely empty due to simplification).
+        function groupRegions(data) {
+            var grouped = d3.map(),
+                results = [];
 
+            for (var p in data) {
+                var elem = data[p];
+                if (elem.coordinates !== undefined) {
+                    if (!grouped.has(elem.id)) {
+                        grouped.set(elem.id, {
+                            type: "GeometryCollection",
+                            geometries: [elem]
+                        });
+                    }
+                    else {
+                        grouped.get(elem.id).geometries.push(elem);
+                    }
+                }
+            }
+            // Return as array.
+            grouped.forEach(function (key, val) {
+                results.push(val);
+            });
 
-        //function groupRegions(json, key) {
-        //    var results = {},
-        //        groups = {};
+            return results;
+        }
 
-        //    for (var p in json) {
-        //        if (results.hasOwnProperty(json[p].properties.NAME)) {
-
-        //        }
-
-        //        if (json[p].properties.NAME === value) {
-        //            result[explosionIndex] = json[explosionIndex];
-        //        }
-        //    }
-        //    return result;
-        //}
 
     </script>
 </body>
