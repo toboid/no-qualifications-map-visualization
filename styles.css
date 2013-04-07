@@ -1,5 +1,8 @@
-﻿path {
-    /*fill: yellow;*/
+﻿body {
+    background:grey;
+}
+
+path {
     fill: none;
     stroke-linejoin: round;
 }
@@ -19,8 +22,8 @@
 }
 
 .cntry-bndry-ext {
-    fill: #000;
-    fill-opacity: .2;
+    fill: white;
+    fill-opacity: .8;
     stroke-width: .35px;
     filter: url(index.html#dropshadow);
 }
