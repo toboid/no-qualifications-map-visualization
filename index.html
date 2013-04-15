@@ -11,28 +11,17 @@
     <link rel="stylesheet" href="colorbrewer.css" />
 </head>
 <body>
-    <svg id="map" width="960" height="1160">
+    <svg id="mapSvg" width="960" height="1160" viewBox="0 0 960 1160">
         <filter id="dropshadow">
             <feGaussianBlur stdDeviation="10"/> 
         </filter>
     </svg>
     <script>
-        var svg = d3.select("#map");
-        var width = svg.attr("width"),
-            height = svg.attr("height");
-
-        //var width = 960,
-        //    height = 1160;
-
-        //var svg = d3.select("body").append("svg")
-        //    .attr("viewBox", "0 0 " + width + " " + height)
-        //    .attr("width", width)
-        //    .attr("height", height);
-
-        //svg.append("filter")
-        //    .attr("id", "dropshadow")
-        //    .append("feGaussianBlur")
-        //    .attr("stdDeviation", 5);
+        var svg = d3.select("#mapSvg"),
+            width = svg.attr("width"),
+            height = svg.attr("height"),
+            centered,
+            mapGrp = svg.append("g").attr("id", "mapGrp");
 
         var projection = d3.geo.albers()
             .center([0, 55.4])
@@ -48,14 +37,15 @@
             .range(d3.range(9).map(function (i) { return "q" + i + "-9"; }));
 
         // External boundary.
-        svg.append("path")
-            .datum(topojson.mesh(boundaries, boundaries.objects.regions, function (a, b) { return a === b }))
+        mapGrp.append("path")
+            .datum(topojson.mesh(boundaries, boundaries.objects.constituencies, function (a, b) { return a === b }))
             .attr("d", path)
             .attr("class", "cntry-bndry-ext");
 
         // Constituencies.
-        svg.append("g")
+        mapGrp.append("g")
             .attr("class", "YlGn constituency")
+            .attr("id", "constituencies")
             .selectAll("path")
             .data(topojson.object(boundaries, boundaries.objects.constituencies).geometries)
             .enter()
@@ -63,47 +53,69 @@
             .attr("class", function (d) {
                 return colourScale(unqualified.data[d.id].percent_unqual);
             })
-            .attr("d", path);
+            .attr("d", path)
+            .on("click", click);;
 
-        // Regions.
-        svg.append("g")
-            .attr("id", "regions")
-            .attr("class", "region")
-            .selectAll("path")
-            .data(groupRegions(topojson.object(boundaries, boundaries.objects.regions).geometries))
-            .enter()
-            .append("path")
-            .attr("d", path);
+        function click(d) {
+            var x, y, scaleFactor;
 
-        // Groups geometries in the data set by region,
-        // also removes any empty geometries (likely empty due to simplification).
-        function groupRegions(data) {
-            var grouped = d3.map(),
-                results = [];
-
-            for (var p in data) {
-                var elem = data[p];
-                if (elem.coordinates !== undefined) {
-                    if (!grouped.has(elem.id)) {
-                        grouped.set(elem.id, {
-                            type: "GeometryCollection",
-                            geometries: [elem]
-                        });
-                    }
-                    else {
-                        grouped.get(elem.id).geometries.push(elem);
-                    }
-                }
+            if (d && centered !== d) {
+                var centroid = path.centroid(d);
+                x = centroid[0];
+                y = centroid[1];
+                scaleFactor = 4
+                lineScaleFactor = 3;
+                centered = d;
+            } else {
+                x = width / 2;
+                y = height / 2;
+                scaleFactor = 1;
+                lineScaleFactor = 1;
+                centered = null;
             }
-            // Return as array.
-            grouped.forEach(function (key, val) {
-                results.push(val);
-            });
 
-            return results;
+            d3.selectAll("path")
+                .classed("active", centered && function (d) {
+                    return d === centered;
+                });
+
+            // Working but slow in Chrome
+            mapGrp.transition()
+                .duration(1000)
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + scaleFactor + ")translate(" + -x + "," + -y + ")");
+                //.style("stroke-width", 0.8 / lineScaleFactor + "px");
+           
+            /*
+            // Faster Transform
+            mapGrp.transition()
+                .duration(1000)
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")translate(" + -x + "," + -y + ")")
+                .style("stroke-width", 0.8 / scaleFactor + "px");
+
+            svg.transition()
+                .duration(1000)
+                .style(transformProp, "scale(" + scaleFactor + ")")
+                   */
+            d3.transition()
+                .duration(1000)
+                .select("#constituencies")
+                .style("stroke-width", 0.8 / lineScaleFactor + "px");
+             
         }
 
-
+        var transformProp = (function (props) {
+            var style = document.documentElement.style;
+            for (var i = 0; i < props.length; i++) {
+                if (props[i] in style) return {
+                    transform: 'transform',
+                    WebkitTransform: '-webkit-transform',
+                    OTransform: '-o-transform',
+                    MozTransform: '-moz-transform',
+                    msTransform: '-ms-transform'
+                }[props[i]];
+            }
+            return false;
+        })(['transform', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform']);
     </script>
 </body>
 </html>

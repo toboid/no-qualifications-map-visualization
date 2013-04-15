@@ -5,6 +5,7 @@
 path {
     fill: none;
     stroke-linejoin: round;
+    pointer-events: visible;
 }
 
 .constituency {
@@ -12,13 +13,8 @@ path {
     stroke-width: 0.8px;
 }
 
-.region {
-  stroke: none;
-  pointer-events: visible;
-}
-.region path:hover {
-    fill: yellow;
-    opacity: 0.3;
+.constituency path:hover {
+    fill: green;
 }
 
 .cntry-bndry-ext {
@@ -28,7 +24,9 @@ path {
     filter: url(index.html#dropshadow);
 }
 
-
-
+path.active, path.active:hover {
+    fill: red !important;
+    opacity: 0.3;
+}
 
 
