@@ -1,4 +1,4 @@
-﻿body {
+﻿svg {
     background:grey;
 }
 
@@ -27,6 +27,19 @@ path {
 path.active, path.active:hover {
     fill: red !important;
     opacity: 0.3;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 130px;
+    height: 30px;
+    padding: 8px;
+    font: 10px sans-serif;
+    background: #fff;
+    border: solid 1px #aaa;
+    border-radius: 1px;
+    pointer-events: none;
 }
 
 

@@ -3,20 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <script src="libraries/d3.v3.js"></script>
+    <script src="libraries/d3.v3.min.js"></script>
     <script src="libraries/topojson.v0.js"></script>
     <script src="data/unqualified.js"></script>
     <script src="data/boundaries.js"></script>
+    <script src="choropleth.js"></script>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="colorbrewer.css" />
 </head>
 <body>
-    <svg id="mapSvg" width="960" height="1160" viewBox="0 0 960 1160">
+<!--    <svg id="mapSvg" width="960" height="1160" viewBox="0 0 960 1160">
         <filter id="dropshadow">
             <feGaussianBlur stdDeviation="10"/> 
         </filter>
-    </svg>
-    <script>
+    </svg>-->
+
+    <script type="text/javascript">
+        var body = d3.select("body");
+        ts.choropleth.draw(body);
+    </script>
+    
+    <!--<script>
         var svg = d3.select("#mapSvg"),
             width = svg.attr("width"),
             height = svg.attr("height"),
@@ -37,10 +44,10 @@
             .range(d3.range(9).map(function (i) { return "q" + i + "-9"; }));
 
         // External boundary.
-        mapGrp.append("path")
-            .datum(topojson.mesh(boundaries, boundaries.objects.constituencies, function (a, b) { return a === b }))
-            .attr("d", path)
-            .attr("class", "cntry-bndry-ext");
+        //mapGrp.append("path")
+        //    .datum(topojson.mesh(boundaries, boundaries.objects.constituencies, function (a, b) { return a === b }))
+        //    .attr("d", path)
+        //    .attr("class", "cntry-bndry-ext");
 
         // Constituencies.
         mapGrp.append("g")
@@ -54,7 +61,7 @@
                 return colourScale(unqualified.data[d.id].percent_unqual);
             })
             .attr("d", path)
-            .on("click", click);;
+            .on("click", click);
 
         function click(d) {
             var x, y, scaleFactor;
@@ -83,39 +90,39 @@
             mapGrp.transition()
                 .duration(1000)
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + scaleFactor + ")translate(" + -x + "," + -y + ")");
-                //.style("stroke-width", 0.8 / lineScaleFactor + "px");
            
-            /*
+            
             // Faster Transform
-            mapGrp.transition()
-                .duration(1000)
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")translate(" + -x + "," + -y + ")")
-                .style("stroke-width", 0.8 / scaleFactor + "px");
+            //mapGrp.transition()
+            //    .duration(1000)
+            //    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")translate(" + -x + "," + -y + ")")
+            //    .style("stroke-width", 0.8 / scaleFactor + "px");
 
-            svg.transition()
-                .duration(1000)
-                .style(transformProp, "scale(" + scaleFactor + ")")
-                   */
+            //var transformProp = (function (props) {
+            //    var style = document.documentElement.style;
+            //    for (var i = 0; i < props.length; i++) {
+            //        if (props[i] in style) return {
+            //            transform: 'transform',
+            //            WebkitTransform: '-webkit-transform',
+            //            OTransform: '-o-transform',
+            //            MozTransform: '-moz-transform',
+            //            msTransform: '-ms-transform'
+            //        }[props[i]];
+            //    }
+            //    return false;
+            //})(['transform', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform']);
+
+            //svg.transition()
+            //    .duration(1000)
+            //    .style(transformProp, "scale(" + scaleFactor + ")");
+                  
             d3.transition()
                 .duration(1000)
                 .select("#constituencies")
                 .style("stroke-width", 0.8 / lineScaleFactor + "px");
              
         }
-
-        var transformProp = (function (props) {
-            var style = document.documentElement.style;
-            for (var i = 0; i < props.length; i++) {
-                if (props[i] in style) return {
-                    transform: 'transform',
-                    WebkitTransform: '-webkit-transform',
-                    OTransform: '-o-transform',
-                    MozTransform: '-moz-transform',
-                    msTransform: '-ms-transform'
-                }[props[i]];
-            }
-            return false;
-        })(['transform', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform']);
-    </script>
+    </script>-->
+    
 </body>
 </html>
