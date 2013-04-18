@@ -9,24 +9,28 @@ path {
 }
 
 .constituency {
-    stroke: #fff;
-    stroke-width: 0.8px;
+    stroke: #aaa;
+    stroke-width: 0.05px;
 }
 
 .constituency path:hover {
     fill: green;
 }
 
-.cntry-bndry-ext {
-    fill: white;
+#cntry-bndry-ext {
+    /* Works with the filter*/
+    /*fill: white;
     fill-opacity: .8;
     stroke-width: .35px;
-    filter: url(index.html#dropshadow);
+    filter: url(index.html#dropshadow);*/
+
+    stroke-width: 2.5px;
+    stroke: white;
 }
 
 path.active, path.active:hover {
     fill: red !important;
-    opacity: 0.3;
+    /*opacity: 0.3;*/
 }
 
 div.tooltip {

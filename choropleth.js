@@ -58,43 +58,26 @@ ts.choropleth = (function () {
                 return d === centered;
             });
 
-        // Working but slow in Chrome
         mapGrp.transition()
             .duration(1000)
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + scaleFactor + ")translate(" + -x + "," + -y + ")");
 
-        //// Faster Transform
-        //mapGrp.transition()
-        //    .duration(1000)
-        //    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")translate(" + -x + "," + -y + ")")
-        //    .style("stroke-width", 0.8 / scaleFactor + "px");
-
-        //var transformProp = (function (props) {
-        //    var style = document.documentElement.style;
-        //    for (var i = 0; i < props.length; i++) {
-        //        if (props[i] in style) return {
-        //            transform: 'transform',
-        //            WebkitTransform: '-webkit-transform',
-        //            OTransform: '-o-transform',
-        //            MozTransform: '-moz-transform',
-        //            msTransform: '-ms-transform'
-        //        }[props[i]];
-        //    }
-        //    return false;
-        //})(['transform', 'WebkitTransform', 'OTransform', 'MozTransform', 'msTransform']);
-
-        //svg.transition()
-        //    .duration(1000)
-        //    .style(transformProp, "scale(" + scaleFactor + ")");
-
         d3.transition()
             .duration(1000)
             .select("#constituencies")
-            .style("stroke-width", 0.8 / lineScaleFactor + "px");
+            .style("stroke-width", 0.05 / lineScaleFactor + "px");
+
+        // If using the filter then change this to adjust the filter instead.
+        d3.transition()
+            .duration(1000)
+            .select("#cntry-bndry-ext")
+            .style("stroke-width", 2.5 / lineScaleFactor + "px");
+
     },
 
     mouseover = function (d, i) {
-        tooltip.style("opacity", .9).text(d.properties.NAME);
+        var vals = unqualified.data[d.id];
+        tooltip.style("opacity", .9).text(vals.name);
     },
 
     mousemove = function (d, i) {
@@ -128,9 +111,10 @@ ts.choropleth = (function () {
         // External boundary.
         mapGrp.append("path")
            .datum(topojson.mesh(boundaries, boundaries.objects.constituencies, function (a, b) { return a === b; }))
-           .attr("d", path)
-           .attr("class", "cntry-bndry-ext");
+           .attr("id", "cntry-bndry-ext")
+           .attr("d", path);
 
+        // Constituencies.
         mapGrp.append("g")
             .attr("class", "YlGn constituency")
             .attr("id", "constituencies")
