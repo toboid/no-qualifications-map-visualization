@@ -42,7 +42,7 @@ ts.choropleth = (function () {
             var centroid = path.centroid(d);
             x = centroid[0];
             y = centroid[1];
-            scaleFactor = 4;
+            scaleFactor = 6;
             lineScaleFactor = 3;
             centered = d;
         } else {
@@ -94,19 +94,12 @@ ts.choropleth = (function () {
     },
 
     mouseover = function (d, i) {
-        tooltip.style("opacity", .95).text(d.properties.NAME);
+        tooltip.style("opacity", .9).text(d.properties.NAME);
     },
 
     mousemove = function (d, i) {
         tooltip.style("left", (d3.event.pageX - 65) + "px")
             .style("top", (d3.event.pageY - 60) + "px");
-
-        //var centroid = path.centroid(d),
-        //    toolX = centroid[0],
-        //    toolY = centroid[1];
-
-        //tooltip.style("left", toolX + "px")
-        //    .style("top", (toolY) + "px");
     },
 
     mouseout = function () {
@@ -133,10 +126,10 @@ ts.choropleth = (function () {
             .attr("stdDeviation", 5);
 
         // External boundary.
-        //mapGrp.append("path")
-        //    .datum(topojson.mesh(boundaries, boundaries.objects.constituencies, function (a, b) { return a === b; }))
-        //    .attr("d", path)
-        //    .attr("class", "cntry-bndry-ext");
+        mapGrp.append("path")
+           .datum(topojson.mesh(boundaries, boundaries.objects.constituencies, function (a, b) { return a === b; }))
+           .attr("d", path)
+           .attr("class", "cntry-bndry-ext");
 
         mapGrp.append("g")
             .attr("class", "YlGn constituency")
