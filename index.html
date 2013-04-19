@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="colorbrewer.css" />
 </head>
 <body>
+    <div id="tooltip" style="opacity: 0;">
+        <p id="toolName" class="inLabel"></p>
+        <p id="toolVal" class="inLabel"></p>
+    </div>
+
     <script type="text/javascript">
         var body = d3.select("body");
         ts.choropleth.draw(body);

@@ -77,12 +77,15 @@ ts.choropleth = (function () {
 
     mouseover = function (d, i) {
         var vals = unqualified.data[d.id];
-        tooltip.style("opacity", .9).text(vals.name);
+        tooltip.style("opacity", .93);
+        d3.select("#toolName").text(vals.name);
+        d3.select("#toolVal").text(vals.percent_unqual + "%");
     },
 
     mousemove = function (d, i) {
-        tooltip.style("left", (d3.event.pageX - 65) + "px")
-            .style("top", (d3.event.pageY - 60) + "px");
+        var tooltipDiv = document.getElementById("tooltip");
+        tooltip.style("left", (d3.event.pageX - 75) + "px")
+            .style("top", (d3.event.pageY - tooltipDiv.clientHeight - 15) + "px");
     },
 
     mouseout = function () {
@@ -92,9 +95,7 @@ ts.choropleth = (function () {
     draw = function (b) {
         body = b;
 
-        tooltip = b.append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 1e-6);
+        tooltip = d3.select("#tooltip");
 
         svg = body.append("svg")
              .attr("viewBox", "0 0 " + width + " " + height)
