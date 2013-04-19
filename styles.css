@@ -40,11 +40,18 @@ div.tooltip {
     width: 130px;
     height: 30px;
     padding: 8px;
-    font: 10px sans-serif;
+    font-size: 12px;
+    font-family: 'Noto Sans', sans-serif;
     background: #fff;
     border: solid 1px #aaa;
     border-radius: 1px;
     pointer-events: none;
 }
 
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Noto Sans'), local('NotoSans'), url(http://themes.googleusercontent.com/static/fonts/notosans/v1/LeFlHvsZjXu2c3ZRgBq9nD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
 
