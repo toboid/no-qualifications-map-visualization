@@ -1,12 +1,4 @@
-﻿/*jslint browser: true*/
-/*global d3, unqualified, topojson, boundaries*/
-
-/// <reference path="libraries/d3.v3.min.js" />
-/// <reference path="libraries/topojson.v0.js" />
-/// <reference path="data/unqualified.js" />
-/// <reference path="data/boundaries.js" />
-
-var ts = ts || {};
+﻿var ts = ts || {};
 
 ts.choropleth = (function () {
     "use strict";
