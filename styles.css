@@ -46,9 +46,9 @@ path.active, path.active:hover {
     pointer-events: none;
 }
 
-/*#toolName {
+#toolName {
     font-weight: bold;
-}*/
+}
 
 .inLabel {
     margin:0px;
