@@ -59,7 +59,6 @@ ts.choropleth = (function () {
             .select("#constituencies")
             .style("stroke-width", 0.05 / lineScaleFactor + "px");
 
-        // If using the filter then change this to adjust the filter instead.
         d3.transition()
             .duration(1000)
             .select("#cntry-bndry-ext")

@@ -18,19 +18,12 @@ path {
 }
 
 #cntry-bndry-ext {
-    /* Works with the filter*/
-    /*fill: white;
-    fill-opacity: .8;
-    stroke-width: .35px;
-    filter: url(index.html#dropshadow);*/
-
     stroke-width: 2px;
     stroke: white;
 }
 
 path.active, path.active:hover {
     fill: red !important;
-    /*opacity: 0.3;*/
 }
 
 #tooltip {
@@ -54,12 +47,9 @@ path.active, path.active:hover {
     margin:0px;
 }
 
-
 @font-face {
   font-family: 'Noto Sans';
   font-style: normal;
   font-weight: 400;
   src: local('Noto Sans'), local('NotoSans'), url(http://themes.googleusercontent.com/static/fonts/notosans/v1/LeFlHvsZjXu2c3ZRgBq9nD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
 }
-
-
