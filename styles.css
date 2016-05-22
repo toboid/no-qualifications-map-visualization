@@ -1,8 +1,4 @@
-﻿svg {
-    background:grey;
-}
-
-path {
+﻿path {
     fill: none;
     stroke-linejoin: round;
     pointer-events: visible;
@@ -19,7 +15,7 @@ path {
 
 #cntry-bndry-ext {
     stroke-width: 2px;
-    stroke: white;
+    stroke: #aaa;
 }
 
 path.active, path.active:hover {
