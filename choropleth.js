@@ -104,6 +104,7 @@ ts.choropleth = (function () {
         mapGrp.append("path")
            .datum(topojson.mesh(boundaries, boundaries.objects.constituencies, function (a, b) { return a === b; }))
            .attr("id", "cntry-bndry-ext")
+           .attr("filter", "url(#dropshadow)")
            .attr("d", path);
 
         // Constituencies.
